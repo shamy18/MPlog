@@ -1,2 +1,2 @@
 # MPlog
-Building my own programming langauge, following "Crafting interpreters" by Robert Nystrom
+Building my own programming langauge, following "Build your own Lisp" by Daniel Holden
