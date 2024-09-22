@@ -1,20 +1,35 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-/* Declare a buffer for user input of size 2048 */
+#ifdef _WIN32
+#include <string.h>
 static char buffer[2048];
+char* readline(char* prompt){
+	fputs(prompt, stdout);
+	fgets(buffer, 2048, stdin);
+	char* cpy= malloc(strlen(buffer+1));
+	strcpy(cpy, buffer);
+	cpy[(strlen(cpy))-1]='\0';
+	return cpy;
+	
+}
+
+void add_history(char* unused){} //not implemented and not gonna do it 
+#else
+#include <editline/readline.h>
+#include <editline/history.h>
+#endif
 int main(int argc, char** argv) {
-/* Print Version and Exit Information */
 puts("Lispy Version 0.0.0.0.1");
-puts("Stage: Parrot");
+puts("Stage: Portable Parrot");
 puts("Press Ctrl+c to Exit\n");
-/* In a never ending loop */
+
 while (1) {
-/* Output our prompt */
-fputs("lispy> ", stdout);
-/* Read a line of user input of maximum size 2048 */
-fgets(buffer, 2048, stdin);
-/* Echo input back to user */
-printf("No you're the %s", buffer);
+char* input=readline("lispy> ");
+add_history(input);
+printf("No you're the %s \n", input);
+free(input);
+input = NULL;
 }
 return 0;
 }
