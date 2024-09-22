@@ -5,6 +5,7 @@ static char buffer[2048];
 int main(int argc, char** argv) {
 /* Print Version and Exit Information */
 puts("Lispy Version 0.0.0.0.1");
+puts("Stage: Parrot");
 puts("Press Ctrl+c to Exit\n");
 /* In a never ending loop */
 while (1) {
