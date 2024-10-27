@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1730064950 source:e:\mplog\parrot\mpc.c
+	"mpc.h"
+
+1730064943 e:\mplog\parrot\mpc.h
+	<stdlib.h>
+	<stdio.h>
+	<stdarg.h>
+	<string.h>
+	<math.h>
+	<errno.h>
+	<ctype.h>
+
+1730067981 source:e:\mplog\parrot\parsing.c
+	<stdio.h>
+	<stdlib.h>
+	"mpc.h"
+	<string.h>
+	<editline/readline.h>
+	<editline/history.h>
+
