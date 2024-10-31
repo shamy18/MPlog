@@ -28,8 +28,8 @@ mpc_parser_t* Expression=mpc_new("expression");
 mpc_parser_t* Lispy=mpc_new("lispy");
 mpca_lang(MPCA_LANG_DEFAULT,
 " \
-number : /-?[0-9]+/ ; \
-operator : '+' | '-' | '*' | '/' ; \
+number   : /-?[0-9]+(\\.[0-9]+)?/ ; \
+operator : '+' | '-' | '*' | '/' | '%' | \"add\" | \"sub\" | \"mul\" | \"div\"; \
 expression : <number> | '(' <operator> <expression>+ ')' ; \
 lispy : /^/ <operator> <expression>+ /$/ ; \
 ",
@@ -41,15 +41,16 @@ puts("Stage: Prefix Notation Parser");
 puts("Press Ctrl+C to Exit\n");
 
 while (1) {
-char* input=readline("lispy> ");
-add_history(input);
-mpc_result_t r;
-if (mpc_parse("<stdin>", input, Lispy, &r)) {
-mpc_ast_print(r.output);
-mpc_ast_delete(r.output);
-} else {
-mpc_err_print(r.error);
-mpc_err_delete(r.error);
+    char* input=readline("lispy> ");
+    add_history(input);
+    mpc_result_t r;
+    if (mpc_parse("<stdin>", input, Lispy, &r)) {
+        mpc_ast_print(r.output);
+        mpc_ast_delete(r.output);
+}
+    else {
+        mpc_err_print(r.error);
+        mpc_err_delete(r.error);
 }
 free(input);
 input = NULL;
