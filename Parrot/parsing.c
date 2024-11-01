@@ -24,16 +24,22 @@ int main(int argc, char** argv) {
 
 mpc_parser_t* Number=mpc_new("number");
 mpc_parser_t* Operator=mpc_new("operator");
-mpc_parser_t* Expression=mpc_new("expression");
+mpc_parser_t* PrefExpression=mpc_new("prefexpression");
+mpc_parser_t* Prefix=mpc_new("prefix");
+mpc_parser_t* InfExpression=mpc_new("infexpression");
+mpc_parser_t* Infix=mpc_new("infix");
 mpc_parser_t* Lispy=mpc_new("lispy");
-mpca_lang(MPCA_LANG_DEFAULT,
-" \
-number   : /-?[0-9]+(\\.[0-9]+)?/ ; \
-operator : '+' | '-' | '*' | '/' | '%' | \"add\" | \"sub\" | \"mul\" | \"div\"; \
-expression : <number> | '(' <operator> <expression>+ ')' ; \
-lispy : /^/ <operator> <expression>+ /$/ ; \
-",
-Number, Operator, Expression, Lispy);
+  mpca_lang(MPCA_LANG_DEFAULT,
+        " \
+        number   : /-?[0-9]+(\\.[0-9]+)?/ ; \
+        operator : '+' | '-' | '*' | '/' | '%' | \"add\" | \"sub\" | \"mul\" | \"div\" | \"mod\"; \
+        prefexpression : <number> | '(' <operator> <prefexpression>+ ')' ; \
+        prefix : <operator> <prefexpression>+ ; \
+        infexpression : <number> | '(' <infexpression> <operator> <infexpression> ')' ; \
+        infix : <infexpression> (<operator> <infexpression>)+ ; \
+        lispy: /^/  <infix> | <prefix>  /$/ ; \
+        ",
+        Number, Operator, PrefExpression, Prefix, InfExpression, Infix, Lispy);
 
 
 puts("Lispy Version 0.0.0.0.2");
@@ -55,7 +61,7 @@ while (1) {
 free(input);
 input = NULL;
 }
-mpc_cleanup(4, Number, Operator, Expression, Lispy);
+mpc_cleanup(7, Number, Operator, PrefExpression, Prefix, InfExpression, Infix, Lispy);
 
 return 0;
 }
