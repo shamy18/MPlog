@@ -29,6 +29,7 @@ mpc_parser_t* Prefix=mpc_new("prefix");
 mpc_parser_t* InfExpression=mpc_new("infexpression");
 mpc_parser_t* Infix=mpc_new("infix");
 mpc_parser_t* Lispy=mpc_new("lispy");
+//infix is not working entirely regarding parsing long expressions with brackets
   mpca_lang(MPCA_LANG_DEFAULT,
         " \
         number   : /-?[0-9]+(\\.[0-9]+)?/ ; \
@@ -43,7 +44,7 @@ mpc_parser_t* Lispy=mpc_new("lispy");
 
 
 puts("Lispy Version 0.0.0.0.2");
-puts("Stage: Prefix Notation Parser");
+puts("Stage: Prefix & Infix Notation Parser");
 puts("Press Ctrl+C to Exit\n");
 
 while (1) {
