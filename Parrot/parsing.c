@@ -36,8 +36,8 @@ mpc_parser_t* Lispy=mpc_new("lispy");
         operator : '+' | '-' | '*' | '/' | '%' | \"add\" | \"sub\" | \"mul\" | \"div\" | \"mod\"; \
         prefexpression : <number> | '(' <operator> <prefexpression>+ ')' ; \
         prefix : <operator> <prefexpression>+ ; \
-        infexpression : <number> | '(' <infexpression> <operator> <infexpression> ')' ; \
-        infix : <infexpression> (<operator> <infexpression>)+ ; \
+        infexpression : <number> | '(' <infexpression> ')' | '(' <infexpression> (<operator> <infexpression>)+ ')' ; \
+        infix : <infexpression> (<operator> <infexpression>)* ; \
         lispy: /^/  <infix> | <prefix>  /$/ ; \
         ",
         Number, Operator, PrefExpression, Prefix, InfExpression, Infix, Lispy);
